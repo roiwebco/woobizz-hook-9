@@ -2,10 +2,10 @@
 /*
 Plugin Name: Woobizz Hook 9
 Plugin URI: http://woobizz.com
-Description: Add widget content on archive description
-Author: Woobizz
+Description: Add content after the title in category of products & tags
+Author: WOOBIZZ.COM
 Author URI: http://woobizz.com
-Version: 1.0.0
+Version: 1.0.1
 Text Domain: woobizzhook9
 Domain Path: /lang/
 */
@@ -16,21 +16,12 @@ add_action( 'plugins_loaded', 'woobizzhook9_load_textdomain' );
 function woobizzhook9_load_textdomain() {
   load_plugin_textdomain( 'woobizzhook9', false, basename( dirname( __FILE__ ) ) . '/lang' ); 
 }
-//Check if WooCommerce is active
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-	//echo "woocommerce is active";
-	add_action( 'widgets_init', 'woobizzhook9_widget',109);
-}else{
-	//Show message on admin
-	//echo "woocommerce is not active";
-	add_action( 'admin_notices', 'woobizzhook9_admin_notice' );
-}
 //Add Hook 9
 function woobizzhook9_widget() {
 	$args = array(
 				'id'            => 'woobizzhook9_id',
 				'name'          => __( 'Woobizz Hook 9', 'woobizzhook9' ),
-				'description'   => __( 'Add widget content after any dynamic archive title','woobizzhook9' ),
+				'description'   => __( 'Add content after the title in category of products & tags','woobizzhook9' ),
 				'before_title'  => '<h2 class="widgettitle">',
 				'before_title'   => '</h2>',
 				'before_widget' => '<li id="%1$s" class="widget %2$s">',
@@ -48,11 +39,4 @@ function woobizzhook9_widget() {
 		<?php
 	}
 }
-//Hook9 Notice
-function woobizzhook9_admin_notice() {
-    ?>
-    <div class="notice notice-error is-dismissible">
-        <p><?php _e( 'Woobizz Hook 9 needs WooCommerce to work properly, If you do not use this plugin you can disable it!', 'woobizzhook9' ); ?></p>
-    </div>
-    <?php
-}
+add_action( 'widgets_init', 'woobizzhook9_widget',109);
